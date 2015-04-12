@@ -1,0 +1,7 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Maven template
+.idea/
+target/
+lib/
+biblioteca.iml
+
