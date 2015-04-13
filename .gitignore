@@ -1,6 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Maven template
 .idea/
+out/
 target/
 lib/
 biblioteca.iml
