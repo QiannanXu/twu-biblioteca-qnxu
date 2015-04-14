@@ -29,4 +29,10 @@ public class BibliotecaAppTest {
         bibliotecaApp.showWelcomePage();
         assertEquals("Welcome to Biblioteca Library!\n", outContent.toString());
     }
+
+    @Test
+    public void shouldShowBookListAfterShowingWelcomeMessage(){
+        bibliotecaApp.showBookList();
+        assertEquals("Here is the book list:\nRefactoring\nTDD\nThinking in Java\n", outContent.toString());
+    }
 }
