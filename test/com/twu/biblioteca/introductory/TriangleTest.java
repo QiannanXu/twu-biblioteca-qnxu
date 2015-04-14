@@ -1,5 +1,6 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.introductory;
 
+import com.twu.biblioteca.introductory.Triangle;
 import org.junit.Before;
 import org.junit.Test;
 

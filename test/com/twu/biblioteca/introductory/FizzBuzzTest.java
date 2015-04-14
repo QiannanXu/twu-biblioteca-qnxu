@@ -1,5 +1,6 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.introductory;
 
+import com.twu.biblioteca.introductory.FizzBuzz;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

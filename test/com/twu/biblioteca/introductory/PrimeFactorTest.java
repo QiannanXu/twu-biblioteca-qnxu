@@ -1,5 +1,6 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.introductory;
 
+import com.twu.biblioteca.introductory.PrimeFactor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class PrimeFactorTest {
     @Test
     public void shouldReturnNullWhenNumberEqualsOne(){
         primeFactor.generate(1);
-        assertEquals("",  outContent.toString());
+        assertEquals("", outContent.toString());
     }
 
     @Test
