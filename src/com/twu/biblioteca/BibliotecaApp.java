@@ -1,7 +1,9 @@
 package com.twu.biblioteca;
 
+import java.util.List;
+
 public class BibliotecaApp {
-    private String[] bookList = {"Refactoring", "TDD", "Thinking in Java"};
+    private List<Book> bookList = new BookList().getBookList();
 
     public void showWelcomePage() {
         System.out.println("Welcome to Biblioteca Library!");
@@ -9,8 +11,9 @@ public class BibliotecaApp {
 
     public void showBookList(){
         System.out.println("Here is the book list:");
-        for(int i=0; i<bookList.length; i++){
-            System.out.println(bookList[i]);
+        System.out.println("-----------------------");
+        for(Book book : bookList){
+            System.out.println("Name: "+book.getBookName()+"\tAuthor: "+book.getBookAuthor()+"\t"+book.getPublishedYear());
         }
     }
 }

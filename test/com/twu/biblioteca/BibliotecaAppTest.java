@@ -33,6 +33,9 @@ public class BibliotecaAppTest {
     @Test
     public void shouldShowBookListAfterShowingWelcomeMessage(){
         bibliotecaApp.showBookList();
-        assertEquals("Here is the book list:\nRefactoring\nTDD\nThinking in Java\n", outContent.toString());
+        assertEquals("Here is the book list:\n-----------------------\n" +
+                    "Name: Refactoring\tAuthor: Martin Flower\t2012\n" +
+                    "Name: TDD\tAuthor: Kent Beck\t2003\n" +
+                    "Name: Thinking in Java\tAuthor: Bruce Eckel\t2006\n", outContent.toString());
     }
 }
