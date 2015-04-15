@@ -42,5 +42,13 @@ public class BibliotecaAppTest {
                 "Thinking in Java    Bruce Eckel         2006                \n", outContent.toString());
     }
 
-    
+    @Test
+    public void shouldShowMainMenu(){
+        bibliotecaApp.showMenu();
+        assertEquals("Please Select an Option:\n" +
+                "---------------------------------------------\n" +
+                "1.List Books\n", outContent.toString());
+    }
+
+
 }

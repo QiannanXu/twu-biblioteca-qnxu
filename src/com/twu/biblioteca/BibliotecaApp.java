@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class BibliotecaApp {
     private List<Book> bookList = new BookList().getBookList();
@@ -23,7 +24,6 @@ public class BibliotecaApp {
             System.out.printf("%-20s", book.getBookAuthor());
             System.out.printf("%-20s", book.getPublishedYear());
             System.out.printf("\n");
-//            System.out.println("Name: "+book.getBookName()+"\tAuthor: "+book.getBookAuthor()+"\t"+book.getPublishedYear());
         }
     }
 
@@ -31,6 +31,26 @@ public class BibliotecaApp {
     public static void main(String[] args) {
         BibliotecaApp bibliotecaApp = new BibliotecaApp();
         bibliotecaApp.showWelcomePage();
-        bibliotecaApp.showBookList();
+        bibliotecaApp.showMenu();
+    }
+
+    public void showMenu() {
+        System.out.println("Please Select an Option:");
+        System.out.println("---------------------------------------------");
+        System.out.println("1.List Books");
+
+        selectMenuOption();
+    }
+
+    private void selectMenuOption() {
+        Scanner scanner = new Scanner(System.in);
+        while(scanner.hasNextLine()){
+            String input = scanner.nextLine();
+            switch (input){
+                case "1":
+                    showBookList();
+                    break;
+            }
+        }
     }
 }
