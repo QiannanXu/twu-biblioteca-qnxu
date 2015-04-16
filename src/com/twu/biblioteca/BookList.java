@@ -8,9 +8,9 @@ public class BookList {
 
     static {
         bookList = new ArrayList(){{
-            add(new Book("Refactoring", "Martin Flower", 2012));
-            add(new Book("TDD", "Kent Beck", 2003));
-            add(new Book("Thinking in Java", "Bruce Eckel", 2006));
+            add(new Book("1", "Refactoring", "Martin Flower", 2012));
+            add(new Book("2", "TDD", "Kent Beck", 2003));
+            add(new Book("3", "Thinking in Java", "Bruce Eckel", 2006));
         }};
     }
 

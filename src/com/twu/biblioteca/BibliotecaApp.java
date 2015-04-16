@@ -13,6 +13,7 @@ public class BibliotecaApp {
     public void showBookList(){
         System.out.println("Here is the book list:");
         System.out.println("---------------------------------------------");
+        System.out.printf("%-5s", "Id");
         System.out.printf("%-20s", "Name");
         System.out.printf("%-20s", "Author");
         System.out.printf("%-20s", "Year");
@@ -20,11 +21,13 @@ public class BibliotecaApp {
         System.out.println("---------------------------------------------");
 
         for(Book book : bookList){
+            System.out.printf("%-5s", book.getBookId());
             System.out.printf("%-20s", book.getBookName());
             System.out.printf("%-20s", book.getBookAuthor());
             System.out.printf("%-20s", book.getPublishedYear());
-            System.out.printf("\n");
+            System.out.println();;
         }
+        System.out.println("---------------------------------------------");
     }
 
 
@@ -44,6 +47,10 @@ public class BibliotecaApp {
                     showBookList();
                     break;
                 case "2":
+                    showBookList();
+                    checkOutBook();
+                    break;
+                case "3":
                     quit();
                     break;
                 default:
@@ -52,11 +59,19 @@ public class BibliotecaApp {
         }
     }
 
+    private void checkOutBook() {
+        System.out.println("---------------------------------------------");
+        System.out.println("Please Select Book Number You Want To Check Out:");
+        System.out.println("---------------------------------------------");
+
+    }
+
     public void showSelectMenuOptions() {
         System.out.println("Please Select an Option:");
         System.out.println("---------------------------------------------");
         System.out.println("1.List Books");
-        System.out.println("2.Quit");
+        System.out.println("2.Check Out Books");
+        System.out.println("3.Quit");
         System.out.println("---------------------------------------------");
     }
 

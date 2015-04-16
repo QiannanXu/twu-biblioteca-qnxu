@@ -1,11 +1,13 @@
 package com.twu.biblioteca;
 
 public class Book {
+    private String bookId;
     private String bookName;
     private String bookAuthor;
     private int publishedYear;
 
-    public Book(String bookName, String bookAuthor, int publishedYear) {
+    public Book(String bookId, String bookName, String bookAuthor, int publishedYear) {
+        this.bookId = bookId;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.publishedYear = publishedYear;
@@ -33,6 +35,14 @@ public class Book {
 
     public void setPublishedYear(int publishedYear) {
         this.publishedYear = publishedYear;
+    }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
     @Override

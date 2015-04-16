@@ -39,11 +39,12 @@ public class BibliotecaAppTest {
         bibliotecaApp.showBookList();
         assertEquals("Here is the book list:\n" +
                 "---------------------------------------------\n" +
-                "Name                Author              Year                \n" +
+                "Id   Name                Author              Year                \n" +
                 "---------------------------------------------\n" +
-                "Refactoring         Martin Flower       2012                \n" +
-                "TDD                 Kent Beck           2003                \n" +
-                "Thinking in Java    Bruce Eckel         2006                \n", outContent.toString());
+                "1    Refactoring         Martin Flower       2012                \n" +
+                "2    TDD                 Kent Beck           2003                \n" +
+                "3    Thinking in Java    Bruce Eckel         2006                \n" +
+                "---------------------------------------------\n", outContent.toString());
     }
 
     @Test
@@ -53,7 +54,8 @@ public class BibliotecaAppTest {
         assertEquals("Please Select an Option:\n" +
                 "---------------------------------------------\n" +
                 "1.List Books\n" +
-                "2.Quit\n" +
+                "2.Check Out Books\n" +
+                "3.Quit\n" +
                 "---------------------------------------------\n", outContent.toString());
     }
 
