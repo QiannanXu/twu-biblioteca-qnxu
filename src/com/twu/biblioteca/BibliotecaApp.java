@@ -4,7 +4,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BibliotecaApp {
-    private List<Book> bookList = new BookList().getBookList();
+    private List<Book> bookList;
+
+    public BibliotecaApp(List<Book> bookList) {
+        this.bookList = bookList;
+    }
 
     public void showWelcomePage() {
         System.out.println("Welcome to Biblioteca Library!\n");
@@ -22,18 +26,20 @@ public class BibliotecaApp {
         System.out.println("---------------------------------------------");
 
         for(Book book : bookList){
-            System.out.printf("%-5s", book.getBookId());
-            System.out.printf("%-20s", book.getBookName());
-            System.out.printf("%-20s", book.getBookAuthor());
-            System.out.printf("%-20s", book.getPublishedYear());
-            System.out.println();;
+            if(book.getBookState().equals(BookState.CHECKED_IN)){
+                System.out.printf("%-5s", book.getBookId());
+                System.out.printf("%-20s", book.getBookName());
+                System.out.printf("%-20s", book.getBookAuthor());
+                System.out.printf("%-20s", book.getPublishedYear());
+                System.out.println();;
+            }
         }
         System.out.println("---------------------------------------------");
     }
 
 
     public static void main(String[] args) {
-        BibliotecaApp bibliotecaApp = new BibliotecaApp();
+        BibliotecaApp bibliotecaApp = new BibliotecaApp(new BookList().getBookList());
         bibliotecaApp.showWelcomePage();
         bibliotecaApp.executeSelectedOption();
     }
