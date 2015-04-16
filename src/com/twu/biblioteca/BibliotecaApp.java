@@ -7,7 +7,8 @@ public class BibliotecaApp {
     private List<Book> bookList = new BookList().getBookList();
 
     public void showWelcomePage() {
-        System.out.println("Welcome to Biblioteca Library!");
+        System.out.println("Welcome to Biblioteca Library!\n");
+        showSelectMenuOptions();
     }
 
     public void showBookList(){
@@ -34,7 +35,6 @@ public class BibliotecaApp {
     public static void main(String[] args) {
         BibliotecaApp bibliotecaApp = new BibliotecaApp();
         bibliotecaApp.showWelcomePage();
-        bibliotecaApp.showSelectMenuOptions();
         bibliotecaApp.executeSelectedOption();
     }
 
@@ -47,8 +47,7 @@ public class BibliotecaApp {
                     showBookList();
                     break;
                 case "2":
-                    showBookList();
-                    checkOutBook();
+                    showCheckOutOptions();
                     break;
                 case "3":
                     quit();
@@ -59,11 +58,30 @@ public class BibliotecaApp {
         }
     }
 
-    private void checkOutBook() {
-        System.out.println("---------------------------------------------");
+    private void showCheckOutOptions() {
+        showBookList();
+
         System.out.println("Please Select Book Number You Want To Check Out:");
         System.out.println("---------------------------------------------");
 
+        Scanner scanner = new Scanner(System.in);
+        checkOutTheSelectedBook(scanner.next());
+
+    }
+
+    private void checkOutTheSelectedBook(String option) {
+        for(Book book : bookList){
+            if(book.getBookId().equals(option)){
+                book.setBookState(BookState.CHECKED_OUT);
+                System.out.println("Thank you! Enjoy the book.");
+                System.out.println();
+                showWelcomePage();
+                return;
+            }
+        }
+
+        System.out.println("That book is not available.\n");
+        showCheckOutOptions();
     }
 
     public void showSelectMenuOptions() {

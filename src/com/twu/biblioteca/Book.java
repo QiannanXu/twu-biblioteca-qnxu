@@ -5,12 +5,14 @@ public class Book {
     private String bookName;
     private String bookAuthor;
     private int publishedYear;
+    private BookState bookState;
 
-    public Book(String bookId, String bookName, String bookAuthor, int publishedYear) {
+    public Book(String bookId, String bookName, String bookAuthor, int publishedYear, BookState bookState) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.publishedYear = publishedYear;
+        this.bookState = bookState;
     }
 
     public String getBookName() {
@@ -52,5 +54,13 @@ public class Book {
                 ", bookAuthor='" + bookAuthor + '\'' +
                 ", publishedYear=" + publishedYear +
                 '}';
+    }
+
+    public BookState getBookState() {
+        return bookState;
+    }
+
+    public void setBookState(BookState bookState) {
+        this.bookState = bookState;
     }
 }

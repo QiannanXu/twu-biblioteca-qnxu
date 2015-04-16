@@ -31,7 +31,14 @@ public class BibliotecaAppTest {
     @Test
     public void shouldShowWelcomePageWhenUserStartApplication(){
         bibliotecaApp.showWelcomePage();
-        assertEquals("Welcome to Biblioteca Library!\n", outContent.toString());
+        assertEquals("Welcome to Biblioteca Library!\n" +
+                "\n" +
+                "Please Select an Option:\n" +
+                "---------------------------------------------\n" +
+                "1.List Books\n" +
+                "2.Check Out Books\n" +
+                "3.Quit\n" +
+                "---------------------------------------------\n", outContent.toString());
     }
 
     @Test
