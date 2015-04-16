@@ -15,6 +15,17 @@ public class BibliotecaApp {
         showSelectMenuOptions();
     }
 
+    private void showSelectMenuOptions() {
+        System.out.println("Please Select an Option:");
+        System.out.println("---------------------------------------------");
+        System.out.println("1.List Books");
+        System.out.println("2.Check Out Books");
+        System.out.println("3.Return Books");
+        System.out.println("4.Quit");
+        System.out.println("---------------------------------------------");
+    }
+
+
     public void showBookList(){
         System.out.println("Here is the book list:");
         System.out.println("---------------------------------------------");
@@ -36,7 +47,6 @@ public class BibliotecaApp {
         }
         System.out.println("---------------------------------------------");
     }
-
 
     public static void main(String[] args) {
         BibliotecaApp bibliotecaApp = new BibliotecaApp(new BookList().getBookList());
@@ -88,15 +98,6 @@ public class BibliotecaApp {
 
         System.out.println("That book is not available.\n");
         showCheckOutOptions();
-    }
-
-    public void showSelectMenuOptions() {
-        System.out.println("Please Select an Option:");
-        System.out.println("---------------------------------------------");
-        System.out.println("1.List Books");
-        System.out.println("2.Check Out Books");
-        System.out.println("3.Quit");
-        System.out.println("---------------------------------------------");
     }
 
 

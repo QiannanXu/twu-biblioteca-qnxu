@@ -46,7 +46,8 @@ public class BibliotecaAppTest {
                 "---------------------------------------------\n" +
                 "1.List Books\n" +
                 "2.Check Out Books\n" +
-                "3.Quit\n" +
+                "3.Return Books\n" +
+                "4.Quit\n" +
                 "---------------------------------------------\n", outContent.toString());
     }
 
@@ -60,18 +61,6 @@ public class BibliotecaAppTest {
                 "1    Refactoring         Martin Flower       2012                \n" +
                 "2    TDD                 Kent Beck           2003                \n" +
                 "3    Thinking in Java    Bruce Eckel         2006                \n" +
-                "---------------------------------------------\n", outContent.toString());
-    }
-
-    @Test
-    public void shouldShowSelectMenuOptions(){
-        bibliotecaApp.showSelectMenuOptions();
-
-        assertEquals("Please Select an Option:\n" +
-                "---------------------------------------------\n" +
-                "1.List Books\n" +
-                "2.Check Out Books\n" +
-                "3.Quit\n" +
                 "---------------------------------------------\n", outContent.toString());
     }
 
@@ -97,4 +86,6 @@ public class BibliotecaAppTest {
                 "1    Refactoring         Martin Flower       2012                \n" +
                 "---------------------------------------------\n", outContent.toString());
     }
+
+
 }
