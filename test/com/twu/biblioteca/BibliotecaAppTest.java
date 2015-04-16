@@ -1,17 +1,13 @@
 package com.twu.biblioteca;
 
-import com.sun.javaws.exceptions.ExitException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import static org.junit.Assert.assertEquals;
 
@@ -53,7 +49,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void shouldShowBookListAfterShowingWelcomeMessage(){
-        bibliotecaApp.showBookList();
+        bibliotecaApp.showAvailableBookList();
         assertEquals("Here is the book list:\n" +
                 "---------------------------------------------\n" +
                 "Id   Name                Author              Year                \n" +
@@ -78,7 +74,7 @@ public class BibliotecaAppTest {
         }};
 
         bibliotecaApp = new BibliotecaApp(mockBookList);
-        bibliotecaApp.showBookList();
+        bibliotecaApp.showAvailableBookList();
         assertEquals("Here is the book list:\n" +
                 "---------------------------------------------\n" +
                 "Id   Name                Author              Year                \n" +
