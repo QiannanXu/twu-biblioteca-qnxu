@@ -1,11 +1,15 @@
 package com.twu.biblioteca;
 
+import com.sun.javaws.exceptions.ExitException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Scanner;
 
 import static org.junit.Assert.assertEquals;
 
@@ -44,11 +48,18 @@ public class BibliotecaAppTest {
 
     @Test
     public void shouldShowMainMenu(){
-        bibliotecaApp.showMenu();
+        bibliotecaApp.showSelectMenuOptions();
+
         assertEquals("Please Select an Option:\n" +
                 "---------------------------------------------\n" +
-                "1.List Books\n", outContent.toString());
+                "1.List Books\n" +
+                "2.Quit\n" +
+                "---------------------------------------------\n", outContent.toString());
     }
 
-
+    @Test
+    public void shouldShowErrorMessage(){
+        bibliotecaApp.showErroMessage();
+        assertEquals("Select a valid option!\n", outContent.toString());
+    }
 }

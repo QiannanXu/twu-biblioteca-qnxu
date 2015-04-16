@@ -31,26 +31,41 @@ public class BibliotecaApp {
     public static void main(String[] args) {
         BibliotecaApp bibliotecaApp = new BibliotecaApp();
         bibliotecaApp.showWelcomePage();
-        bibliotecaApp.showMenu();
+        bibliotecaApp.showSelectMenuOptions();
+        bibliotecaApp.executeSelectedOption();
     }
 
-    public void showMenu() {
-        System.out.println("Please Select an Option:");
-        System.out.println("---------------------------------------------");
-        System.out.println("1.List Books");
-
-        selectMenuOption();
-    }
-
-    private void selectMenuOption() {
+    public void executeSelectedOption() {
         Scanner scanner = new Scanner(System.in);
         while(scanner.hasNextLine()){
-            String input = scanner.nextLine();
-            switch (input){
+            String option = scanner.next();
+            switch (option) {
                 case "1":
                     showBookList();
                     break;
+                case "2":
+                    quit();
+                    break;
+                default:
+                    showErroMessage();
             }
         }
+    }
+
+    public void showSelectMenuOptions() {
+        System.out.println("Please Select an Option:");
+        System.out.println("---------------------------------------------");
+        System.out.println("1.List Books");
+        System.out.println("2.Quit");
+        System.out.println("---------------------------------------------");
+    }
+
+
+    public void showErroMessage() {
+        System.out.println("Select a valid option!");
+    }
+
+    private void quit() {
+        System.exit(0);
     }
 }
