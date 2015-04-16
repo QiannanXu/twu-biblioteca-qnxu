@@ -53,14 +53,7 @@ public class BibliotecaApp {
     }
 
     public void showAvailableBookList(){
-        System.out.println("Here is the book list:");
-        System.out.println("---------------------------------------------");
-        System.out.printf("%-5s", "Id");
-        System.out.printf("%-20s", "Name");
-        System.out.printf("%-20s", "Author");
-        System.out.printf("%-20s", "Year");
-        System.out.printf("\n");
-        System.out.println("---------------------------------------------");
+        formatBookListColumn();
 
         for(Book book : availableBookList){
             if(book.getBookState().equals(BookState.CHECKED_IN)){
@@ -71,6 +64,17 @@ public class BibliotecaApp {
                 System.out.println();;
             }
         }
+        System.out.println("---------------------------------------------");
+    }
+
+    private void formatBookListColumn() {
+        System.out.println("Here is the book list:");
+        System.out.println("---------------------------------------------");
+        System.out.printf("%-5s", "Id");
+        System.out.printf("%-20s", "Name");
+        System.out.printf("%-20s", "Author");
+        System.out.printf("%-20s", "Year");
+        System.out.printf("\n");
         System.out.println("---------------------------------------------");
     }
 
@@ -96,14 +100,7 @@ public class BibliotecaApp {
     }
 
     private void showReturnBookList() {
-        System.out.println("Here is the book list:");
-        System.out.println("---------------------------------------------");
-        System.out.printf("%-5s", "Id");
-        System.out.printf("%-20s", "Name");
-        System.out.printf("%-20s", "Author");
-        System.out.printf("%-20s", "Year");
-        System.out.printf("\n");
-        System.out.println("---------------------------------------------");
+        formatBookListColumn();
 
         for(Book book : checkedOutBookList){
             if(book.getBookState().equals(BookState.CHECKED_OUT)){
