@@ -2,7 +2,5 @@
 ### Maven template
 .idea/
 out/
-target/
-lib/
 biblioteca.iml
 
