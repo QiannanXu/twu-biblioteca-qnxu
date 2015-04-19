@@ -4,13 +4,15 @@ public class Movie {
     private String name;
     private String year;
     private String director;
-    private String rating;
+    private MovieRating rating;
+    private State state;
 
-    public Movie(String name, String year, String director, String rating) {
+    public Movie(String name, String year, String director, MovieRating rating, State state) {
         this.name = name;
         this.year = year;
         this.director = director;
         this.rating = rating;
+        this.state = state;
     }
 
     public String getName() {
@@ -37,12 +39,20 @@ public class Movie {
         this.director = director;
     }
 
-    public String getRating() {
+    public MovieRating getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(MovieRating rating) {
         this.rating = rating;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 
     @Override

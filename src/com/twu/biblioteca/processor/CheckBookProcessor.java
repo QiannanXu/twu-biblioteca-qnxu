@@ -1,7 +1,7 @@
 package com.twu.biblioteca.processor;
 
 import com.twu.biblioteca.entity.Book;
-import com.twu.biblioteca.entity.BookState;
+import com.twu.biblioteca.entity.State;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class CheckBookProcessor {
         formatBookListColumn();
 
         for(Book book : availableBookList){
-            if(book.getBookState().equals(BookState.CHECKED_IN)){
+            if(book.getBookState().equals(State.CHECKED_IN)){
                 System.out.printf("%-5s", book.getBookId());
                 System.out.printf("%-20s", book.getBookName());
                 System.out.printf("%-20s", book.getBookAuthor());
@@ -33,7 +33,7 @@ public class CheckBookProcessor {
         formatBookListColumn();
 
         for(Book book : checkedOutBookList){
-            if(book.getBookState().equals(BookState.CHECKED_OUT)){
+            if(book.getBookState().equals(State.CHECKED_OUT)){
                 System.out.printf("%-5s", book.getBookId());
                 System.out.printf("%-20s", book.getBookName());
                 System.out.printf("%-20s", book.getBookAuthor());
@@ -58,7 +58,7 @@ public class CheckBookProcessor {
     public boolean checkOutBook(String bookId) {
         for(Book book : availableBookList){
             if(book.getBookId().equals(bookId)){
-                book.setBookState(BookState.CHECKED_OUT);
+                book.setBookState(State.CHECKED_OUT);
                 checkedOutBookList.add(book);
                 availableBookList.remove(book);
                 return true;
@@ -70,7 +70,7 @@ public class CheckBookProcessor {
     public boolean returnBook(String bookId) {
         for(Book book : checkedOutBookList){
             if(book.getBookId().equals(bookId)){
-                book.setBookState(BookState.CHECKED_IN);
+                book.setBookState(State.CHECKED_IN);
                 checkedOutBookList.remove(book);
                 availableBookList.add(book);
                 return true;

@@ -1,7 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.entity.Book;
-import com.twu.biblioteca.entity.BookState;
+import com.twu.biblioteca.entity.State;
 import com.twu.biblioteca.processor.CheckBookProcessor;
 
 import java.util.ArrayList;
@@ -103,11 +103,11 @@ public class BibliotecaApp {
 
     public static void main(String[] args) {
         List<Book> availableBookList = new ArrayList(){{
-            add(new Book("1", "Refactoring", "Martin Flower", 2012, BookState.CHECKED_IN));
-            add(new Book("2", "TDD", "Kent Beck", 2003, BookState.CHECKED_IN));
+            add(new Book("1", "Refactoring", "Martin Flower", 2012, State.CHECKED_IN));
+            add(new Book("2", "TDD", "Kent Beck", 2003, State.CHECKED_IN));
         }};
         List<Book> checkedOutBookList = new ArrayList(){{
-            add(new Book("3", "Thinking in Java", "Bruce Eckel", 2006, BookState.CHECKED_OUT));
+            add(new Book("3", "Thinking in Java", "Bruce Eckel", 2006, State.CHECKED_OUT));
         }};
 
         BibliotecaApp bibliotecaApp = new BibliotecaApp(new CheckBookProcessor(availableBookList, checkedOutBookList));

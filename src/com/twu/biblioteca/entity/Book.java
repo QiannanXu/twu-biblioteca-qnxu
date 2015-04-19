@@ -5,9 +5,9 @@ public class Book {
     private String bookName;
     private String bookAuthor;
     private int publishedYear;
-    private BookState bookState;
+    private State bookState;
 
-    public Book(String bookId, String bookName, String bookAuthor, int publishedYear, BookState bookState) {
+    public Book(String bookId, String bookName, String bookAuthor, int publishedYear, State bookState) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
@@ -56,11 +56,11 @@ public class Book {
                 '}';
     }
 
-    public BookState getBookState() {
+    public State getBookState() {
         return bookState;
     }
 
-    public void setBookState(BookState bookState) {
+    public void setBookState(State bookState) {
         this.bookState = bookState;
     }
 }

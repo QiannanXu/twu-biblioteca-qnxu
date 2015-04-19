@@ -1,7 +1,7 @@
 package com.twu.biblioteca.processor;
 
 import com.twu.biblioteca.entity.Book;
-import com.twu.biblioteca.entity.BookState;
+import com.twu.biblioteca.entity.State;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,11 +21,11 @@ public class CheckBookProcessorTest {
     public void init(){
         System.setOut(new PrintStream(outContent));
         List<Book> availableBookList = new ArrayList(){{
-            add(new Book("1", "Refactoring", "Martin Flower", 2012, BookState.CHECKED_IN));
-            add(new Book("2", "TDD", "Kent Beck", 2003, BookState.CHECKED_IN));
+            add(new Book("1", "Refactoring", "Martin Flower", 2012, State.CHECKED_IN));
+            add(new Book("2", "TDD", "Kent Beck", 2003, State.CHECKED_IN));
         }};
         List<Book> checkedOutBookList = new ArrayList(){{
-            add(new Book("3", "Thinking in Java", "Bruce Eckel", 2006, BookState.CHECKED_OUT));
+            add(new Book("3", "Thinking in Java", "Bruce Eckel", 2006, State.CHECKED_OUT));
         }};
         checkBookProcessor = new CheckBookProcessor(availableBookList, checkedOutBookList);
     }
