@@ -1,5 +1,7 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.processor.CheckBookProcessor;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -8,6 +10,12 @@ public class BibliotecaApp {
     private List<Book> availableBookList;
     private List<Book> checkedOutBookList;
 
+    private CheckBookProcessor checkBookProcessor;
+
+    public BibliotecaApp(CheckBookProcessor checkBookProcessor) {
+        this.checkBookProcessor = checkBookProcessor;
+    }
+
     public BibliotecaApp(List<Book> availableBookList) {
         this.availableBookList = availableBookList;
         this.checkedOutBookList = new ArrayList<>();
@@ -15,10 +23,6 @@ public class BibliotecaApp {
 
     public void showWelcomePage() {
         System.out.println("Welcome to Biblioteca Library!\n");
-        showSelectMenuOptions();
-    }
-
-    private void showSelectMenuOptions() {
         System.out.println("Please Select an Option:");
         System.out.println("---------------------------------------------");
         System.out.println("1.List Books");
@@ -35,7 +39,7 @@ public class BibliotecaApp {
             String option = scanner.next();
             switch (option) {
                 case "1":
-                    showAvailableBookList();
+                    checkBookProcessor.showAvailableBookList();
                     break;
                 case "2":
                     showCheckOutOptions();
@@ -52,34 +56,8 @@ public class BibliotecaApp {
         }
     }
 
-    public void showAvailableBookList(){
-        formatBookListColumn();
-
-        for(Book book : availableBookList){
-            if(book.getBookState().equals(BookState.CHECKED_IN)){
-                System.out.printf("%-5s", book.getBookId());
-                System.out.printf("%-20s", book.getBookName());
-                System.out.printf("%-20s", book.getBookAuthor());
-                System.out.printf("%-20s", book.getPublishedYear());
-                System.out.println();;
-            }
-        }
-        System.out.println("---------------------------------------------");
-    }
-
-    private void formatBookListColumn() {
-        System.out.println("Here is the book list:");
-        System.out.println("---------------------------------------------");
-        System.out.printf("%-5s", "Id");
-        System.out.printf("%-20s", "Name");
-        System.out.printf("%-20s", "Author");
-        System.out.printf("%-20s", "Year");
-        System.out.printf("\n");
-        System.out.println("---------------------------------------------");
-    }
-
     private void showCheckOutOptions() {
-        showAvailableBookList();
+        checkBookProcessor.showAvailableBookList();
 
         System.out.println("Please Select Book Number You Want To Check Out:");
         System.out.println("---------------------------------------------");
@@ -90,28 +68,13 @@ public class BibliotecaApp {
     }
 
     private void showReturnBookOptions() {
-        showReturnBookList();
+        checkBookProcessor.showCheckedOutBookList();
 
         System.out.println("Please Select Book Number You Want To Return:");
         System.out.println("---------------------------------------------");
 
         Scanner scanner = new Scanner(System.in);
         returnTheSelectedBook(scanner.next());
-    }
-
-    private void showReturnBookList() {
-        formatBookListColumn();
-
-        for(Book book : checkedOutBookList){
-            if(book.getBookState().equals(BookState.CHECKED_OUT)){
-                System.out.printf("%-5s", book.getBookId());
-                System.out.printf("%-20s", book.getBookName());
-                System.out.printf("%-20s", book.getBookAuthor());
-                System.out.printf("%-20s", book.getPublishedYear());
-                System.out.println();;
-            }
-        }
-        System.out.println("---------------------------------------------");
     }
 
     private void checkOutTheSelectedBook(String option) {

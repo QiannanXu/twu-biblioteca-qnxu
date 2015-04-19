@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.processor.CheckBookProcessor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,18 +15,23 @@ import static org.junit.Assert.assertEquals;
 public class BibliotecaAppTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private BibliotecaApp bibliotecaApp;
-    private List<Book> bookList;
+    private CheckBookProcessor checkBookProcessor;
+    private List<Book> availableBookList;
+    private List<Book> checkedOutBookList;
 
     @Before
     public void setUpStreams() {
-        bookList = new ArrayList(){{
+        System.setOut(new PrintStream(outContent));
+
+        availableBookList = new ArrayList(){{
             add(new Book("1", "Refactoring", "Martin Flower", 2012, BookState.CHECKED_IN));
             add(new Book("2", "TDD", "Kent Beck", 2003, BookState.CHECKED_IN));
             add(new Book("3", "Thinking in Java", "Bruce Eckel", 2006, BookState.CHECKED_IN));
         }};
 
-        System.setOut(new PrintStream(outContent));
-        bibliotecaApp = new BibliotecaApp(bookList);
+        checkedOutBookList = new ArrayList<>();
+        checkBookProcessor = new CheckBookProcessor(availableBookList, checkedOutBookList);
+        bibliotecaApp = new BibliotecaApp(checkBookProcessor);
     }
 
     @After
@@ -48,40 +54,9 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void shouldShowBookListAfterShowingWelcomeMessage(){
-        bibliotecaApp.showAvailableBookList();
-        assertEquals("Here is the book list:\n" +
-                "---------------------------------------------\n" +
-                "Id   Name                Author              Year                \n" +
-                "---------------------------------------------\n" +
-                "1    Refactoring         Martin Flower       2012                \n" +
-                "2    TDD                 Kent Beck           2003                \n" +
-                "3    Thinking in Java    Bruce Eckel         2006                \n" +
-                "---------------------------------------------\n", outContent.toString());
-    }
-
-    @Test
     public void shouldShowErrorMessage(){
         bibliotecaApp.showErroMessage();
         assertEquals("Select a valid option!\n", outContent.toString());
     }
-
-    @Test
-    public void shouldNotShowBookWhenBookIsCheckedOut(){
-        List<Book> mockBookList = new ArrayList<Book>(){{
-            add(new Book("1", "Refactoring", "Martin Flower", 2012, BookState.CHECKED_IN));
-            add(new Book("2", "TDD", "Kent Beck", 2003, BookState.CHECKED_OUT));
-        }};
-
-        bibliotecaApp = new BibliotecaApp(mockBookList);
-        bibliotecaApp.showAvailableBookList();
-        assertEquals("Here is the book list:\n" +
-                "---------------------------------------------\n" +
-                "Id   Name                Author              Year                \n" +
-                "---------------------------------------------\n" +
-                "1    Refactoring         Martin Flower       2012                \n" +
-                "---------------------------------------------\n", outContent.toString());
-    }
-
 
 }
