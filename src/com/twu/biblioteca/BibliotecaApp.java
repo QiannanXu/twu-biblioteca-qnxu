@@ -1,5 +1,7 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.entity.Book;
+import com.twu.biblioteca.entity.BookState;
 import com.twu.biblioteca.processor.CheckBookProcessor;
 
 import java.util.ArrayList;

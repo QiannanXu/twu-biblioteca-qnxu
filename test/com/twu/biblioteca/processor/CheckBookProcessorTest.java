@@ -1,7 +1,7 @@
 package com.twu.biblioteca.processor;
 
-import com.twu.biblioteca.Book;
-import com.twu.biblioteca.BookState;
+import com.twu.biblioteca.entity.Book;
+import com.twu.biblioteca.entity.BookState;
 import org.junit.Before;
 import org.junit.Test;
 
