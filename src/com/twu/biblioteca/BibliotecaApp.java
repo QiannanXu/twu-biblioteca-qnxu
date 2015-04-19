@@ -7,18 +7,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BibliotecaApp {
-    private List<Book> availableBookList;
-    private List<Book> checkedOutBookList;
-
     private CheckBookProcessor checkBookProcessor;
 
     public BibliotecaApp(CheckBookProcessor checkBookProcessor) {
         this.checkBookProcessor = checkBookProcessor;
-    }
-
-    public BibliotecaApp(List<Book> availableBookList) {
-        this.availableBookList = availableBookList;
-        this.checkedOutBookList = new ArrayList<>();
     }
 
     public void showWelcomePage() {
@@ -64,7 +56,6 @@ public class BibliotecaApp {
 
         Scanner scanner = new Scanner(System.in);
         checkOutTheSelectedBook(scanner.next());
-
     }
 
     private void showReturnBookOptions() {
@@ -77,34 +68,22 @@ public class BibliotecaApp {
         returnTheSelectedBook(scanner.next());
     }
 
-    private void checkOutTheSelectedBook(String option) {
-        for(Book book : availableBookList){
-            if(book.getBookId().equals(option)){
-                book.setBookState(BookState.CHECKED_OUT);
-                checkedOutBookList.add(book);
-                availableBookList.remove(book);
-                System.out.println("Thank you! Enjoy the book.");
-                System.out.println();
-                showWelcomePage();
-                return;
-            }
+    private void checkOutTheSelectedBook(String bookId) {
+        if(checkBookProcessor.checkOutBook(bookId)){
+            System.out.println("Thank you! Enjoy the book.\n");
+            showWelcomePage();
+            return;
         }
 
         System.out.println("That book is not available.\n");
         showCheckOutOptions();
     }
 
-    private void returnTheSelectedBook(String option) {
-        for(Book book : checkedOutBookList){
-            if(book.getBookId().equals(option)){
-                book.setBookState(BookState.CHECKED_IN);
-                checkedOutBookList.remove(book);
-                availableBookList.add(book);
-                System.out.println("Thank you for returning the book.");
-                System.out.println();
-                showWelcomePage();
-                return;
-            }
+    private void returnTheSelectedBook(String bookId) {
+        if(checkBookProcessor.returnBook(bookId)){
+            System.out.println("Thank you for returning the book.\n");
+            showWelcomePage();
+            return;
         }
 
         System.out.println("That is not a valid book to return.\n");
@@ -121,7 +100,15 @@ public class BibliotecaApp {
     }
 
     public static void main(String[] args) {
-        BibliotecaApp bibliotecaApp = new BibliotecaApp(new BookList().getBookList());
+        List<Book> availableBookList = new ArrayList(){{
+            add(new Book("1", "Refactoring", "Martin Flower", 2012, BookState.CHECKED_IN));
+            add(new Book("2", "TDD", "Kent Beck", 2003, BookState.CHECKED_IN));
+        }};
+        List<Book> checkedOutBookList = new ArrayList(){{
+            add(new Book("3", "Thinking in Java", "Bruce Eckel", 2006, BookState.CHECKED_OUT));
+        }};
+
+        BibliotecaApp bibliotecaApp = new BibliotecaApp(new CheckBookProcessor(availableBookList, checkedOutBookList));
         bibliotecaApp.showWelcomePage();
         bibliotecaApp.executeSelectedOption();
     }

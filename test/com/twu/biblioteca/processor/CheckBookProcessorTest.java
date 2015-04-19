@@ -53,4 +53,57 @@ public class CheckBookProcessorTest {
                 "---------------------------------------------\n", outContent.toString());
 
     }
+
+    @Test
+    public void shouldNotShowInAvailableListWhenBookIsCheckedOut(){
+        checkBookProcessor.checkOutBook("1");
+        checkBookProcessor.showAvailableBookList();
+        assertEquals("Here is the book list:\n" +
+                "---------------------------------------------\n" +
+                "Id   Name                Author              Year                \n" +
+                "---------------------------------------------\n" +
+                "2    TDD                 Kent Beck           2003                \n" +
+                "---------------------------------------------\n", outContent.toString());
+
+    }
+
+    @Test
+    public void shouldShowInCheckedOutListWhenBookIsCheckedOut(){
+        checkBookProcessor.checkOutBook("1");
+        checkBookProcessor.showCheckedOutBookList();
+        assertEquals("Here is the book list:\n" +
+                "---------------------------------------------\n" +
+                "Id   Name                Author              Year                \n" +
+                "---------------------------------------------\n" +
+                "3    Thinking in Java    Bruce Eckel         2006                \n" +
+                "1    Refactoring         Martin Flower       2012                \n" +
+                "---------------------------------------------\n", outContent.toString());
+    }
+
+    @Test
+    public void shouldNotShowInCheckedOutListWhenBookIsReturned(){
+        checkBookProcessor.returnBook("3");
+        checkBookProcessor.showCheckedOutBookList();
+        assertEquals("Here is the book list:\n" +
+                "---------------------------------------------\n" +
+                "Id   Name                Author              Year                \n" +
+                "---------------------------------------------\n" +
+                "---------------------------------------------\n", outContent.toString());
+    }
+
+    @Test
+    public void shouldShowInAvailableListWhenBookIsReturned(){
+        checkBookProcessor.returnBook("3");
+        checkBookProcessor.showAvailableBookList();
+        assertEquals("Here is the book list:\n" +
+                "---------------------------------------------\n" +
+                "Id   Name                Author              Year                \n" +
+                "---------------------------------------------\n" +
+                "1    Refactoring         Martin Flower       2012                \n" +
+                "2    TDD                 Kent Beck           2003                \n" +
+                "3    Thinking in Java    Bruce Eckel         2006                \n" +
+                "---------------------------------------------\n", outContent.toString());
+    }
+
+
 }

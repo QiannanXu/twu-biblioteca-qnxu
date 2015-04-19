@@ -55,6 +55,30 @@ public class CheckBookProcessor {
         System.out.println("---------------------------------------------");
     }
 
+    public boolean checkOutBook(String bookId) {
+        for(Book book : availableBookList){
+            if(book.getBookId().equals(bookId)){
+                book.setBookState(BookState.CHECKED_OUT);
+                checkedOutBookList.add(book);
+                availableBookList.remove(book);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean returnBook(String bookId) {
+        for(Book book : checkedOutBookList){
+            if(book.getBookId().equals(bookId)){
+                book.setBookState(BookState.CHECKED_IN);
+                checkedOutBookList.remove(book);
+                availableBookList.add(book);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<Book> getAvailableBookList() {
         return availableBookList;
     }

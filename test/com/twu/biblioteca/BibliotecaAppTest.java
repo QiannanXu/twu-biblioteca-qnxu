@@ -11,26 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 public class BibliotecaAppTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private BibliotecaApp bibliotecaApp;
     private CheckBookProcessor checkBookProcessor;
-    private List<Book> availableBookList;
-    private List<Book> checkedOutBookList;
 
     @Before
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
-
-        availableBookList = new ArrayList(){{
-            add(new Book("1", "Refactoring", "Martin Flower", 2012, BookState.CHECKED_IN));
-            add(new Book("2", "TDD", "Kent Beck", 2003, BookState.CHECKED_IN));
-            add(new Book("3", "Thinking in Java", "Bruce Eckel", 2006, BookState.CHECKED_IN));
-        }};
-
-        checkedOutBookList = new ArrayList<>();
-        checkBookProcessor = new CheckBookProcessor(availableBookList, checkedOutBookList);
+        checkBookProcessor = mock(CheckBookProcessor.class);
         bibliotecaApp = new BibliotecaApp(checkBookProcessor);
     }
 
