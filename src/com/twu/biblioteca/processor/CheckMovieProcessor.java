@@ -55,6 +55,30 @@ public class CheckMovieProcessor {
         System.out.println("---------------------------------------------");
     }
 
+    public boolean checkOutMovie(String movieName) {
+        for(Movie movie : availableMovieList){
+            if(movie.getName().equals(movieName)){
+                movie.setState(State.CHECKED_OUT);
+                availableMovieList.remove(movie);
+                checkedOutMovieList.add(movie);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean returnMovie(String movieName) {
+        for(Movie movie : checkedOutMovieList){
+            if(movie.getName().equals(movieName)){
+                movie.setState(State.CHECKED_IN);
+                availableMovieList.add(movie);
+                checkedOutMovieList.remove(movie);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<Movie> getAvailableMovieList() {
         return availableMovieList;
     }

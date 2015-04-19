@@ -50,4 +50,52 @@ public class CheckMovieProcessorTest {
                 "gg   2009                Jim                 UN_RATED            \n" +
                 "---------------------------------------------\n", outContent.toString());
     }
+
+    @Test
+    public void shouldNotShowWhenMovieIsCheckedOut(){
+        checkMovieProcessor.checkOutMovie("hh");
+        checkMovieProcessor.showAvailableMovieList();
+        assertEquals("Here is the Movie list:\n" +
+                "---------------------------------------------\n" +
+                "Name Year                Director            Rating              \n" +
+                "---------------------------------------------\n" +
+                "---------------------------------------------\n", outContent.toString());
+    }
+
+    @Test
+    public void shouldShowInCheckedOutListWhenMovieIsCheckedOut(){
+        checkMovieProcessor.checkOutMovie("hh");
+        checkMovieProcessor.showCheckedOutMovieList();
+        assertEquals("Here is the Movie list:\n" +
+                "---------------------------------------------\n" +
+                "Name Year                Director            Rating              \n" +
+                "---------------------------------------------\n" +
+                "gg   2009                Jim                 UN_RATED            \n" +
+                "hh   2012                Tom                 SEVEN               \n" +
+                "---------------------------------------------\n", outContent.toString());
+    }
+
+    @Test
+    public void shouldNotShowInCheckedOutListWhenMovieIsReturned(){
+        checkMovieProcessor.returnMovie("gg");
+        checkMovieProcessor.showCheckedOutMovieList();
+        assertEquals("Here is the Movie list:\n" +
+                "---------------------------------------------\n" +
+                "Name Year                Director            Rating              \n" +
+                "---------------------------------------------\n" +
+                "---------------------------------------------\n", outContent.toString());
+    }
+
+    @Test
+    public void shouldShowInAvailableListWhenMovieIsReturned(){
+        checkMovieProcessor.returnMovie("gg");
+        checkMovieProcessor.showAvailableMovieList();
+        assertEquals("Here is the Movie list:\n" +
+                "---------------------------------------------\n" +
+                "Name Year                Director            Rating              \n" +
+                "---------------------------------------------\n" +
+                "hh   2012                Tom                 SEVEN               \n" +
+                "gg   2009                Jim                 UN_RATED            \n" +
+                "---------------------------------------------\n", outContent.toString());
+    }
 }

@@ -1,8 +1,11 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.entity.Book;
+import com.twu.biblioteca.entity.Movie;
+import com.twu.biblioteca.entity.MovieRating;
 import com.twu.biblioteca.entity.State;
 import com.twu.biblioteca.processor.CheckBookProcessor;
+import com.twu.biblioteca.processor.CheckMovieProcessor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +13,11 @@ import java.util.Scanner;
 
 public class BibliotecaApp {
     private CheckBookProcessor checkBookProcessor;
+    private CheckMovieProcessor checkMovieProcessor;
 
-    public BibliotecaApp(CheckBookProcessor checkBookProcessor) {
+    public BibliotecaApp(CheckBookProcessor checkBookProcessor, CheckMovieProcessor checkMovieProcessor) {
         this.checkBookProcessor = checkBookProcessor;
+        this.checkMovieProcessor = checkMovieProcessor;
     }
 
     public void showWelcomePage() {
@@ -22,7 +27,10 @@ public class BibliotecaApp {
         System.out.println("1.List Books");
         System.out.println("2.Check Out Books");
         System.out.println("3.Return Books");
-        System.out.println("4.Quit");
+        System.out.println("4.List Movies");
+        System.out.println("5.Check Out Movies");
+        System.out.println("6.Return Movies");
+        System.out.println("7.Quit");
         System.out.println("---------------------------------------------");
     }
 
@@ -36,21 +44,27 @@ public class BibliotecaApp {
                     checkBookProcessor.showAvailableBookList();
                     break;
                 case "2":
-                    showCheckOutOptions();
+                    showCheckOutBookOptions();
                     break;
                 case "3":
                     showReturnBookOptions();
                     break;
                 case "4":
+                    showCheckOutMovieOptions();
+                    break;
+                case "5":
+                    showReturnMovieOptions();
+                    break;
+                case "7":
                     quit();
                     break;
                 default:
-                    showErroMessage();
+                    showErrorMessage();
             }
         }
     }
 
-    private void showCheckOutOptions() {
+    private void showCheckOutBookOptions() {
         checkBookProcessor.showAvailableBookList();
 
         System.out.println("Please Select Book Number You Want To Check Out:");
@@ -58,6 +72,16 @@ public class BibliotecaApp {
 
         Scanner scanner = new Scanner(System.in);
         checkOutTheSelectedBook(scanner.next());
+    }
+
+    private void showCheckOutMovieOptions() {
+        checkMovieProcessor.showAvailableMovieList();
+
+        System.out.println("Please Input Movie Name You Want To Check Out:");
+        System.out.println("---------------------------------------------");
+
+        Scanner scanner = new Scanner(System.in);
+        checkOutTheSelectedMovie(scanner.next());
     }
 
     private void showReturnBookOptions() {
@@ -70,6 +94,16 @@ public class BibliotecaApp {
         returnTheSelectedBook(scanner.next());
     }
 
+    private void showReturnMovieOptions() {
+        checkMovieProcessor.showCheckedOutMovieList();
+
+        System.out.println("Please Input Movie Name You Want To Return:");
+        System.out.println("---------------------------------------------");
+
+        Scanner scanner = new Scanner(System.in);
+        returnTheSelectedMovie(scanner.next());
+    }
+
     private void checkOutTheSelectedBook(String bookId) {
         if(checkBookProcessor.checkOutBook(bookId)){
             System.out.println("Thank you! Enjoy the book.\n");
@@ -78,7 +112,17 @@ public class BibliotecaApp {
         }
 
         System.out.println("That book is not available.\n");
-        showCheckOutOptions();
+        showCheckOutBookOptions();
+    }
+
+    private void checkOutTheSelectedMovie(String movieName) {
+        if(checkMovieProcessor.checkOutMovie(movieName)){
+            System.out.println("Thank you! Enjoy the Movie.\n");
+            showWelcomePage();
+            return;
+        }
+        System.out.println("That Movie is not available.\n");
+        showCheckOutMovieOptions();
     }
 
     private void returnTheSelectedBook(String bookId) {
@@ -92,7 +136,18 @@ public class BibliotecaApp {
         showReturnBookOptions();
     }
 
-    public void showErroMessage() {
+    private void returnTheSelectedMovie(String movieName) {
+        if(checkMovieProcessor.returnMovie(movieName)){
+            System.out.println("Thank you for returning the movie.\n");
+            showWelcomePage();
+            return;
+        }
+
+        System.out.println("That is not a valid movie to return.\n");
+        showReturnBookOptions();
+    }
+
+    public void showErrorMessage() {
         System.out.println("Select a valid option!");
     }
 
@@ -109,8 +164,17 @@ public class BibliotecaApp {
         List<Book> checkedOutBookList = new ArrayList(){{
             add(new Book("3", "Thinking in Java", "Bruce Eckel", 2006, State.CHECKED_OUT));
         }};
+        CheckBookProcessor checkBookProcessor = new CheckBookProcessor(availableBookList, checkedOutBookList);
 
-        BibliotecaApp bibliotecaApp = new BibliotecaApp(new CheckBookProcessor(availableBookList, checkedOutBookList));
+        List<Movie> availableMovieList = new ArrayList(){{
+            add(new Movie("hh", "2012", "Tom", MovieRating.SEVEN, State.CHECKED_IN));
+        }};
+        List<Movie> checkedOutMovieList = new ArrayList(){{
+            add(new Movie("gg", "2009", "Jim", MovieRating.UN_RATED, State.CHECKED_OUT));
+        }};
+        CheckMovieProcessor checkMovieProcessor = new CheckMovieProcessor(availableMovieList, checkedOutMovieList);
+
+        BibliotecaApp bibliotecaApp = new BibliotecaApp(checkBookProcessor, checkMovieProcessor);
         bibliotecaApp.showWelcomePage();
         bibliotecaApp.executeSelectedOption();
     }
