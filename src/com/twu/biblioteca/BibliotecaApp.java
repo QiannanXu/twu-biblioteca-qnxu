@@ -20,18 +20,47 @@ public class BibliotecaApp {
         this.checkMovieProcessor = checkMovieProcessor;
     }
 
+    public boolean login(String libraryNumber, String password){
+//        actually this message should be stored in database
+        if(libraryNumber.equals("123-1234") && password.equals("123456")){
+            return true;
+        }
+        return false;
+    }
+
     public void showWelcomePage() {
         System.out.println("Welcome to Biblioteca Library!\n");
-        System.out.println("Please Select an Option:");
+        showLoginOption();
+
+    }
+
+    private void showLoginOption() {
+        System.out.println("Please Login");
         System.out.println("---------------------------------------------");
-        System.out.println("1.List Books");
-        System.out.println("2.Check Out Books");
-        System.out.println("3.Return Books");
-        System.out.println("4.List Movies");
-        System.out.println("5.Check Out Movies");
-        System.out.println("6.Return Movies");
-        System.out.println("7.Quit");
-        System.out.println("---------------------------------------------");
+        System.out.println("Please Input Library Number:");
+        Scanner scanner = new Scanner(System.in);
+        String libraryNumber = scanner.next();
+        System.out.println("Please Input Password:");
+        String password = scanner.next();
+
+        if(login(libraryNumber, password)){
+            System.out.println("Please Select an Option:");
+            System.out.println("---------------------------------------------");
+            System.out.println("1.List Books");
+            System.out.println("2.Check Out Books");
+            System.out.println("3.Return Books");
+            System.out.println("4.List Movies");
+            System.out.println("5.Check Out Movies");
+            System.out.println("6.Return Movies");
+            System.out.println("7.Quit");
+            System.out.println("---------------------------------------------");
+
+            executeSelectedOption();
+        }else{
+            System.out.println("Information error, please login again!");
+            showLoginOption();
+        }
+
     }
 
 
@@ -50,9 +79,12 @@ public class BibliotecaApp {
                     showReturnBookOptions();
                     break;
                 case "4":
-                    showCheckOutMovieOptions();
+                    checkMovieProcessor.showAvailableMovieList();
                     break;
                 case "5":
+                    showCheckOutMovieOptions();
+                    break;
+                case "6":
                     showReturnMovieOptions();
                     break;
                 case "7":
@@ -176,6 +208,6 @@ public class BibliotecaApp {
 
         BibliotecaApp bibliotecaApp = new BibliotecaApp(checkBookProcessor, checkMovieProcessor);
         bibliotecaApp.showWelcomePage();
-        bibliotecaApp.executeSelectedOption();
+
     }
 }
