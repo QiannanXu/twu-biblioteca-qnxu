@@ -7,6 +7,7 @@ import com.twu.biblioteca.entity.State;
 import com.twu.biblioteca.processor.CheckBookProcessor;
 import com.twu.biblioteca.processor.CheckMovieProcessor;
 import com.twu.biblioteca.service.InputScanner;
+import com.twu.biblioteca.user.LoginStorage;
 import com.twu.biblioteca.user.UserStorage;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class BibliotecaApp {
 
     public boolean login(String libraryNumber, String password){
 //        actually this message should be stored in database
-        if(libraryNumber.equals("123-1234") && password.equals("123456")){
+        if(new LoginStorage().exists(libraryNumber, password)){
             loginNumber = "123-1234";
             return true;
         }
