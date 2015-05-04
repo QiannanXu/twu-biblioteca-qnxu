@@ -8,6 +8,7 @@ import com.twu.biblioteca.processor.CheckBookProcessor;
 import com.twu.biblioteca.processor.CheckMovieProcessor;
 import com.twu.biblioteca.service.InputScanner;
 import com.twu.biblioteca.user.LoginStorage;
+import com.twu.biblioteca.user.User;
 import com.twu.biblioteca.user.UserStorage;
 
 import java.util.ArrayList;
@@ -15,12 +16,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BibliotecaApp {
-    private String loginNumber;
+    private User loginUser;
     private CheckBookProcessor checkBookProcessor;
     private CheckMovieProcessor checkMovieProcessor;
 
     public BibliotecaApp(CheckBookProcessor checkBookProcessor, CheckMovieProcessor checkMovieProcessor) {
-        loginNumber = "";
+        loginUser = null;
         this.checkBookProcessor = checkBookProcessor;
         this.checkMovieProcessor = checkMovieProcessor;
     }
@@ -28,7 +29,7 @@ public class BibliotecaApp {
     public boolean login(String libraryNumber, String password){
 //        actually this message should be stored in database
         if(new LoginStorage().exists(libraryNumber, password)){
-            loginNumber = "123-1234";
+            loginUser = new UserStorage().getUser(libraryNumber);
             return true;
         }
         return false;
@@ -36,20 +37,24 @@ public class BibliotecaApp {
 
     public void showWelcomePage() {
         System.out.println("Welcome to Biblioteca Library!\n");
-        System.out.println("Please Login");
-        System.out.println("---------------------------------------------");
-        System.out.println("Please Input Library Number:");
+        if(loginUser == null){
+            System.out.println("Please Login");
+            System.out.println("---------------------------------------------");
+            System.out.println("Please Input Library Number:");
 
-        Scanner scanner = new Scanner(System.in);
-        String libraryNumber = scanner.next();
-        System.out.println("Please Input Password:");
-        String password = scanner.next();
+            Scanner scanner = new Scanner(System.in);
+            String libraryNumber = scanner.next();
+            System.out.println("Please Input Password:");
+            String password = scanner.next();
 
-        if(login(libraryNumber, password)){
-            showSelectOptionAfterLogin();
+            if(login(libraryNumber, password)){
+                showSelectOptionAfterLogin();
+            }else{
+                System.out.println("Information error, please login again!");
+                showLoginOption();
+            }
         }else{
-            System.out.println("Information error, please login again!");
-            showLoginOption();
+            showSelectOptionAfterLogin();
         }
 
     }
@@ -126,7 +131,7 @@ public class BibliotecaApp {
     }
 
     private void showUserProfile() {
-        System.out.println(new UserStorage().showUser(loginNumber));
+        System.out.println(loginUser.toString());
     }
 
     private void showCheckOutBookOptions() {
@@ -171,6 +176,7 @@ public class BibliotecaApp {
 
     private void checkOutTheSelectedBook(String bookId) {
         if(checkBookProcessor.checkOutBook(bookId)){
+            loginUser.checkOutBook(bookId);
             System.out.println("Thank you! Enjoy the book.\n");
             showWelcomePage();
             return;
@@ -182,6 +188,7 @@ public class BibliotecaApp {
 
     private void checkOutTheSelectedMovie(String movieName) {
         if(checkMovieProcessor.checkOutMovie(movieName)){
+            loginUser.checkOutMovie(movieName);
             System.out.println("Thank you! Enjoy the Movie.\n");
             showWelcomePage();
             return;
@@ -192,6 +199,7 @@ public class BibliotecaApp {
 
     private void returnTheSelectedBook(String bookId) {
         if(checkBookProcessor.returnBook(bookId)){
+            loginUser.returnBook(bookId);
             System.out.println("Thank you for returning the book.\n");
             showWelcomePage();
             return;
@@ -203,6 +211,7 @@ public class BibliotecaApp {
 
     private void returnTheSelectedMovie(String movieName) {
         if(checkMovieProcessor.returnMovie(movieName)){
+            loginUser.returnMovie(movieName);
             System.out.println("Thank you for returning the movie.\n");
             showWelcomePage();
             return;
@@ -218,7 +227,8 @@ public class BibliotecaApp {
 
 
     private void quit() {
-        System.exit(0);
+        loginUser = null;
+        showWelcomePage();
     }
 
     public static void main(String[] args) {

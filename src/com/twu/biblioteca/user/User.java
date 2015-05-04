@@ -11,8 +11,8 @@ public class User {
     private String libraryNumber;
     private String emailAddress;
     private String phoneNumber;
-    private List<Book> checkedOutBookList;
-    private List<Movie> checkedOutMovieList;
+    private List<String> checkedOutBookList;
+    private List<String> checkedOutMovieList;
 
     public User(String userName, String libraryNumber, String emailAddress, String phoneNumber) {
         this.userName = userName;
@@ -23,6 +23,22 @@ public class User {
         checkedOutMovieList = new ArrayList<>();
     }
 
+    public void checkOutBook(String bookId){
+        checkedOutBookList.add(bookId);
+    }
+
+    public void returnBook(String bookId){
+        checkedOutBookList.remove(bookId);
+    }
+
+    public void checkOutMovie(String movieId){
+        checkedOutMovieList.add(movieId);
+    }
+
+    public void returnMovie(String movieId){
+        checkedOutMovieList.remove(movieId);
+    }
+
     public String getLibraryNumber() {
         return libraryNumber;
     }
@@ -31,19 +47,19 @@ public class User {
         this.libraryNumber = libraryNumber;
     }
 
-    public List<Book> getCheckedOutBookList() {
+    public List<String> getCheckedOutBookList() {
         return checkedOutBookList;
     }
 
-    public void setCheckedOutBookList(List<Book> checkedOutBookList) {
+    public void setCheckedOutBookList(List<String> checkedOutBookList) {
         this.checkedOutBookList = checkedOutBookList;
     }
 
-    public List<Movie> getCheckedOutMovieList() {
+    public List<String> getCheckedOutMovieList() {
         return checkedOutMovieList;
     }
 
-    public void setCheckedOutMovieList(List<Movie> checkedOutMovieList) {
+    public void setCheckedOutMovieList(List<String> checkedOutMovieList) {
         this.checkedOutMovieList = checkedOutMovieList;
     }
 

@@ -21,4 +21,13 @@ public class UserStorage {
         }
         return "Server Wrong!";
     }
+
+    public User getUser(String libraryNumber) {
+        for(User user : userList){
+            if(user.getLibraryNumber().equals(libraryNumber)){
+                return user;
+            }
+        }
+        return null;
+    }
 }
