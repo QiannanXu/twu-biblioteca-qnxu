@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.processor.CheckBookProcessor;
 import com.twu.biblioteca.processor.CheckMovieProcessor;
+import com.twu.biblioteca.service.InputScanner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,14 +12,17 @@ import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class BibliotecaAppTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private BibliotecaApp bibliotecaApp;
+    private InputScanner inputScanner;
 
     @Before
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
+        inputScanner = mock(InputScanner.class);
         CheckBookProcessor checkBookProcessor = mock(CheckBookProcessor.class);
         CheckMovieProcessor checkMovieProcessor = mock(CheckMovieProcessor.class);
         bibliotecaApp = new BibliotecaApp(checkBookProcessor, checkMovieProcessor);

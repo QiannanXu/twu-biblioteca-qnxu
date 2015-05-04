@@ -6,16 +6,20 @@ import com.twu.biblioteca.entity.MovieRating;
 import com.twu.biblioteca.entity.State;
 import com.twu.biblioteca.processor.CheckBookProcessor;
 import com.twu.biblioteca.processor.CheckMovieProcessor;
+import com.twu.biblioteca.service.InputScanner;
+import com.twu.biblioteca.user.UserStorage;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class BibliotecaApp {
+    private String loginNumber;
     private CheckBookProcessor checkBookProcessor;
     private CheckMovieProcessor checkMovieProcessor;
 
     public BibliotecaApp(CheckBookProcessor checkBookProcessor, CheckMovieProcessor checkMovieProcessor) {
+        loginNumber = "";
         this.checkBookProcessor = checkBookProcessor;
         this.checkMovieProcessor = checkMovieProcessor;
     }
@@ -23,6 +27,7 @@ public class BibliotecaApp {
     public boolean login(String libraryNumber, String password){
 //        actually this message should be stored in database
         if(libraryNumber.equals("123-1234") && password.equals("123456")){
+            loginNumber = "123-1234";
             return true;
         }
         return false;
@@ -30,7 +35,21 @@ public class BibliotecaApp {
 
     public void showWelcomePage() {
         System.out.println("Welcome to Biblioteca Library!\n");
-        showLoginOption();
+        System.out.println("Please Login");
+        System.out.println("---------------------------------------------");
+        System.out.println("Please Input Library Number:");
+
+        Scanner scanner = new Scanner(System.in);
+        String libraryNumber = scanner.next();
+        System.out.println("Please Input Password:");
+        String password = scanner.next();
+
+        if(login(libraryNumber, password)){
+            showSelectOptionAfterLogin();
+        }else{
+            System.out.println("Information error, please login again!");
+            showLoginOption();
+        }
 
     }
 
@@ -44,23 +63,28 @@ public class BibliotecaApp {
         String password = scanner.next();
 
         if(login(libraryNumber, password)){
-            System.out.println("Please Select an Option:");
-            System.out.println("---------------------------------------------");
-            System.out.println("1.List Books");
-            System.out.println("2.Check Out Books");
-            System.out.println("3.Return Books");
-            System.out.println("4.List Movies");
-            System.out.println("5.Check Out Movies");
-            System.out.println("6.Return Movies");
-            System.out.println("7.Quit");
-            System.out.println("---------------------------------------------");
-
-            executeSelectedOption();
+            showSelectOptionAfterLogin();
         }else{
             System.out.println("Information error, please login again!");
             showLoginOption();
         }
 
+    }
+
+    private void showSelectOptionAfterLogin() {
+        System.out.println("Please Select an Option:");
+        System.out.println("---------------------------------------------");
+        System.out.println("1.List Books");
+        System.out.println("2.Check Out Books");
+        System.out.println("3.Return Books");
+        System.out.println("4.List Movies");
+        System.out.println("5.Check Out Movies");
+        System.out.println("6.Return Movies");
+        System.out.println("7.User Profile");
+        System.out.println("8.Quit");
+        System.out.println("---------------------------------------------");
+
+        executeSelectedOption();
     }
 
 
@@ -88,12 +112,20 @@ public class BibliotecaApp {
                     showReturnMovieOptions();
                     break;
                 case "7":
+                    showUserProfile();
+                    break;
+                case "8":
                     quit();
                     break;
                 default:
                     showErrorMessage();
+                    break;
             }
         }
+    }
+
+    private void showUserProfile() {
+        System.out.println(new UserStorage().showUser(loginNumber));
     }
 
     private void showCheckOutBookOptions() {

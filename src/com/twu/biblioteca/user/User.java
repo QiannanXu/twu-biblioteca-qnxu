@@ -9,16 +9,14 @@ import java.util.List;
 public class User {
     private String userName;
     private String libraryNumber;
-    private String password;
     private String emailAddress;
     private String phoneNumber;
     private List<Book> checkedOutBookList;
     private List<Movie> checkedOutMovieList;
 
-    public User(String userName, String libraryNumber, String password, String emailAddress, String phoneNumber) {
+    public User(String userName, String libraryNumber, String emailAddress, String phoneNumber) {
         this.userName = userName;
         this.libraryNumber = libraryNumber;
-        this.password = password;
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
         checkedOutBookList = new ArrayList<>();
@@ -31,14 +29,6 @@ public class User {
 
     public void setLibraryNumber(String libraryNumber) {
         this.libraryNumber = libraryNumber;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public List<Book> getCheckedOutBookList() {
@@ -81,4 +71,15 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", libraryNumber='" + libraryNumber + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", checkedOutBookList=" + checkedOutBookList +
+                ", checkedOutMovieList=" + checkedOutMovieList +
+                '}';
+    }
 }
